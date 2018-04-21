@@ -5,8 +5,9 @@ RUN apk add --no-cache python-dev py2-pip && \
     ln -s /usr/include/locale.h /usr/include/xlocale.h && \
     pip install numpy==1.14.0 && \
     pip install pandas==${PANDAS_VERSION} && \
-    apk del .build-deps
-RUN pip install beebotte
+    pip install beebotte && \
+    apk del .build-deps g++ py2-pip
+RUN rm -fr /root/.cache/pip/
 COPY runner.ash /app/bin/runner.ash
 COPY reporter.py /app/bin/reporter.py
 
