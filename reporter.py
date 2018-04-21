@@ -56,7 +56,7 @@ slowest_speed = slowest[1].tolist()[0]
 samples = df.count().tolist()[0]
 
 report = "SPEEBEE WEATHER REPORT"
-report +="\n----------------------\n"
+report += "\n----------------------\n"
 
 report += "\nChannel: %s\n\n" % _channel
 
@@ -67,9 +67,7 @@ report += "\nNumber of samples: %s" % samples
 report += "\nThe FASTEST speed was on %s and it was %s " % (fastest_date, fastest_speed)
 report += "\nThe SLOWEST speed was on %s and it was %s" % (slowest_date, slowest_speed)
 
-
 report += "\n\nAverage speed: %s" % speed_mean
-
 report += "\n\nStandard deviation: %s" % df[1].std()
 
 report += "\n\n1/10 times we will go: %s or faster" % nine_quantile
