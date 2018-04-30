@@ -4,6 +4,7 @@ import datetime
 import pandas
 from beebotte import *
 import json
+import logging
 
 
 class SpeeBeeReport:
@@ -38,7 +39,14 @@ class SpeeBeeReport:
                 r['ts']
             ])
 
+        # df['ts'] = pd.to_datetime(df['ts'], unit='ms')
+        # weekly_summary = df.groupby(df.ts.dt.week).agg(['mean', 'max', 'min'])
         df = pandas.DataFrame(data=m)
+
+        logging.warning(df.infer_objects())
+        logging.warning(records)
+
+
 
         fastest = df.loc[df[1] == df[1].max(), :]
         slowest = df.loc[df[1] == df[1].min(), :]
@@ -88,7 +96,8 @@ class SpeeBeeReport:
             },
             'df': df,
             'm': m,
-            'std': speed_mean
+            'std': speed_mean,
+            # 'weekly_summary': weekly_summary
         }
 
         return return_data
