@@ -39,14 +39,10 @@ class SpeeBeeReport:
                 r['ts']
             ])
 
-        # df['ts'] = pd.to_datetime(df['ts'], unit='ms')
-        # weekly_summary = df.groupby(df.ts.dt.week).agg(['mean', 'max', 'min'])
-        df = pandas.DataFrame(data=m)
+        df = pandas.DataFrame(data=m).sort_values(by=0)
 
-        logging.warning(df.infer_objects())
-        logging.warning(records)
-
-
+        first_date = df.loc[df[2] == df[2].min(), :][0].tolist()[0]
+        last_date = df.loc[df[2] == df[2].max(), :][0].tolist()[0]
 
         fastest = df.loc[df[1] == df[1].max(), :]
         slowest = df.loc[df[1] == df[1].min(), :]
@@ -94,7 +90,11 @@ class SpeeBeeReport:
                 'date': slowest_date,
                 'speed': slowest_speed
             },
-            'df': df,
+            'sample_dates': {
+                'first': first_date,
+                'last': last_date
+            },
+            'df': df.sort_values(by=[0]),
             'm': m,
             'std': speed_mean,
             # 'weekly_summary': weekly_summary
